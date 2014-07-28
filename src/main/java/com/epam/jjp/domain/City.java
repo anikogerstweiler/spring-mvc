@@ -36,4 +36,9 @@ public class City {
 	public Map<PlaneType, Integer> getFirePowers() {
 		return Collections.unmodifiableMap(firePowers);
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }
