@@ -5,9 +5,18 @@ import java.util.Collections;
 import java.util.List;
 
 public class Route {
+	private String name;
 	private City start;
 	private List<City> enRouteCities = new ArrayList<City>();
 	private City goal;
+	
+	public void setName(final String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 	public void setStart(final City city) {
 		start = city;
