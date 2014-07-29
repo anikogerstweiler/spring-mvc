@@ -1,5 +1,8 @@
 package com.epam.jjp.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.epam.jjp.domain.City;
+import com.epam.jjp.domain.Game;
 import com.epam.jjp.domain.Plane;
 import com.epam.jjp.domain.Plane.PlaneType;
 import com.epam.jjp.domain.Route;
@@ -70,8 +75,7 @@ public class PlaneShootoutController {
 	}
 	
 	@RequestMapping(value = "/planes/addRoute", method = RequestMethod.POST, params = "step=routeAttributes")
-	public String addRoute(final RouteForm routeForm, final City start, final City goal, final Model model) {
-
+	public String addRoute(final RouteForm routeForm, final Model model) {
 		populateData(model);
 		return "routeAttributes";
 	}
@@ -82,7 +86,13 @@ public class PlaneShootoutController {
 		route.setName(routeForm.getName());
 		route.setStart(service.getCityByName(routeForm.getStart()));
 		route.setGoal(service.getCityByName(routeForm.getGoal()));
-		route.setEnRouteCities(routeForm.getEnRouteCities());
+		List<String> cities = routeForm.getEnRouteCities();
+		List<City> tmp = new ArrayList<>();
+		for (String c : cities) {
+			City city = service.getCityByName(c);
+			tmp.add(city);
+		}
+		route.setEnRouteCities(tmp);
 		service.addRoute(route);
 		
 		sessionStatus.setComplete();
@@ -90,6 +100,29 @@ public class PlaneShootoutController {
 		populateData(model);
 		return "planes";
 	}
+	
+	@RequestMapping(value = "planes/addGame", method = RequestMethod.POST)
+	public String addGame(final GameForm gameForm,  String route,  String plane, final Model model) {
+		if (plane != null && route != null) {
+			Game game = new Game();
+
+			game.addPlaneRoute(service.getPlaneByName(plane), service.getRouteByName(route));
+			service.addGame(game);
+		}
+		
+		populateData(model);
+		return "planes";
+
+	}
+	
+	 @RequestMapping(value = "/planes/playGame", method = RequestMethod.GET, produces="text/html; charset=utf-8")
+	 public @ResponseBody String playGame(final Model model) {
+		Game game = service.getGame();
+		String result = game.start();
+		LOG.info("result: " + result);
+		
+		return result;
+	 }
 	
 	
 	private void populateData(final Model model) {

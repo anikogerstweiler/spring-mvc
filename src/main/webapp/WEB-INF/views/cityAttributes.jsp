@@ -14,7 +14,7 @@
 			<c:forEach var="pt" items="${planeTypes}">
 				<option value="${pt}">${pt}</option>
 			</c:forEach>
-		</select>
+		</select><br>
 		<label>Likelihood</label> <br>
 		<input name="likelihood" type="number" /> <br>
 		<label>FirePower</label> <br>

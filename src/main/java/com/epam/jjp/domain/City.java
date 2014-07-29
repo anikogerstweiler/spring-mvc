@@ -37,6 +37,16 @@ public class City {
 		return Collections.unmodifiableMap(firePowers);
 	}
 	
+	public Integer getLikelihoodByType(PlaneType type) {
+		Integer likelihood = null;
+		for (PlaneType t : likelihoods.keySet()) {
+			if (t.equals(type)) {
+				likelihood = likelihoods.get(t);
+			}
+		}
+		return likelihood;
+	}
+	
 	@Override
 	public String toString() {
 		return name;

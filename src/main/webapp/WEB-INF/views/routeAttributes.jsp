@@ -9,13 +9,9 @@
 	
 	<br>
 	<form role="form" action="/smvc/planes/addRoute?step=routeAttributes" method="POST">
-			<label>Name</label> <br>
-			<input name="name" type="text" value="${routeForm.name}" /> <br>
-			<label>Start</label> <br>
-			<input name="start" type="text" value="${routeForm.start}" /> <br>
-			<label>Goal</label> <br>
-			<input name="goal" type="text" value="${routeForm.goal}" /> <br>
-			<button type="submit">ADD ROUTE</button>
+			<label>City</label> <br>
+				<input name="enRouteCities" type="text" /> <br>
+			<button type="submit">ADD CITY</button>
 		</form>
 	
 	<br>

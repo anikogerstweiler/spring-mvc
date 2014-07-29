@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.epam.jjp.domain.City;
+import com.epam.jjp.domain.Game;
 import com.epam.jjp.domain.Plane;
 import com.epam.jjp.domain.Route;
 import com.epam.jjp.domain.Plane.PlaneType;
@@ -18,6 +19,7 @@ public class PlaneShootoutRepository {
 	private final List<City> cities = new ArrayList<>();
 	private final List<Plane> planes = new ArrayList<>();
 	private final List<Route> routes = new ArrayList<>();
+	private Game game;
 	
 	public void addCity(final City city) {
 		cities.add(city);
@@ -48,6 +50,9 @@ public class PlaneShootoutRepository {
 				result = p;
 			}
 		}
+		if (result == null) {
+			throw new IllegalStateException("plane is null");
+		}
 		return result;
 	}
 	
@@ -66,11 +71,22 @@ public class PlaneShootoutRepository {
 				result = p;
 			}
 		}
+		if (result == null) {
+			throw new IllegalStateException("route is null");
+		}
 		return result;
 	}
 	
 	public List<Route> getRoutes() {
 		return Collections.unmodifiableList(routes);
+	}
+	
+	public void addGame(final Game game) {
+		this.game = game;
+	}
+	
+	public Game getGame() {
+		return game;
 	}
 	
 	{
@@ -143,10 +159,26 @@ public class PlaneShootoutRepository {
 		  city3.setLikelihoods(likeliHood);
 		  city3.setFirePowers(firepower);
 		  
+		  City city4 = new City();
+		  
+		  likeliHood.clear();
+		  likeliHood.put(PlaneType.CHARITY, 20);
+		  likeliHood.put(PlaneType.CIVIL, 30);
+		  likeliHood.put(PlaneType.MILITARY, 40);
+		  
+		  firepower.clear();
+		  firepower.put(PlaneType.CHARITY, 40);
+		  firepower.put(PlaneType.CIVIL, 40);
+		  firepower.put(PlaneType.MILITARY, 40);
+		  
+		  city4.setName("Paks");
+		  city4.setLikelihoods(likeliHood);
+		  city4.setFirePowers(firepower);
+		  
 		  cities.add(city1);
 		  cities.add(city2);
 		  cities.add(city3);
+		  cities.add(city4);
 	}
-
 
 }

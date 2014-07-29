@@ -1,0 +1,15 @@
+body {
+	background-color: #e5e3db;
+	font-family: 'tamoha', sans-serif;
+	color: #555;
+	font-size: 14px;
+}
+
+em {
+	font-weight: bold;
+}
+
+.container {
+	width: 960px;
+	margin: 0px auto;
+}

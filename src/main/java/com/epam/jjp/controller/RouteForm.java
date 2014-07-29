@@ -8,7 +8,7 @@ import com.epam.jjp.domain.City;
 public class RouteForm {
 	private String name;
 	private String start;
-	private List<City> enRouteCities = new ArrayList<City>();
+	private List<String> enRouteCities = new ArrayList<String>();
 	private String goal;
 	
 	public String getName() {
@@ -23,11 +23,11 @@ public class RouteForm {
 	public void setStart(String start) {
 		this.start = start;
 	}
-	public List<City> getEnRouteCities() {
+	public List<String> getEnRouteCities() {
 		return enRouteCities;
 	}
-	public void setEnRouteCities(List<City> enRouteCities) {
-		this.enRouteCities = enRouteCities;
+	public void setEnRouteCities(String city) {
+		enRouteCities.add(city);
 	}
 	public String getGoal() {
 		return goal;

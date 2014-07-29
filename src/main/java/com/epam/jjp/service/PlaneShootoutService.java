@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.epam.jjp.domain.City;
+import com.epam.jjp.domain.Game;
 import com.epam.jjp.domain.Plane;
 import com.epam.jjp.domain.Route;
 import com.epam.jjp.repository.PlaneShootoutRepository;
 
 @Service
 public class PlaneShootoutService {
+	
 	@Autowired
 	private PlaneShootoutRepository repository;
 	
@@ -49,5 +51,13 @@ public class PlaneShootoutService {
 	
 	public List<Route> getRoutes() {
 		return repository.getRoutes();
+	}
+	
+	public void addGame(Game game) {
+		repository.addGame(game);
+	}
+	
+	public Game getGame() {
+		return repository.getGame();
 	}
 }
